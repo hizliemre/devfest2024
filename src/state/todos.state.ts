@@ -4,7 +4,7 @@ import {rxResource} from '@angular/core/rxjs-interop';
 import {TodoStatusChangedEvent} from '@components/todo/todo.component';
 import {take} from 'rxjs';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class TodosState {
 
   #todoApi = inject(TodoApi);
@@ -26,6 +26,15 @@ export class TodosState {
 
   next() {
     this.#skip.set(this.#skip() + this.#limit());
+  }
+
+  add(todo: string) {
+    this.#todoApi.add(todo)
+      .pipe(take(1))
+      .subscribe((added) => {
+        this.#todosResource.update((todos) => [added, ...todos!]);
+        alert('SUCCESS');
+      });
   }
 
   itemStatusChanged(e: TodoStatusChangedEvent) {

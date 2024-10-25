@@ -1,1 +1,10 @@
-<p>create-todo works!</p>
+<form (ngSubmit)="submit()" [formGroup]="form" class="flex flex-col gap-4 items-start">
+  <fieldset>
+    <legend>Create Todo</legend>
+    <input class="border text-lg" formControlName="todo" type="text">
+    @if (form.get('todo')?.invalid && form.get('todo')?.touched) {
+      <div class="text-red-500">Todo is required</div>
+    }
+  </fieldset>
+  <button class="border text-lg px-2 py-1 bg-slate-400 hover:bg-slate-700" type="submit">Save</button>
+</form>
