@@ -1,12 +1,21 @@
-import {Component, ComponentRef, Directive, inject, input, OnDestroy, Renderer2, ViewContainerRef} from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  Directive,
+  inject,
+  input,
+  OnDestroy,
+  Renderer2,
+  ViewContainerRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-tooltip',
   standalone: true,
   template: `{{ text() }}`,
   host: {
-    class: 'absolute pointer-events-none bg-black text-white p-2 rounded-lg'
-  }
+    class: 'absolute pointer-events-none bg-black text-white p-2 rounded-lg',
+  },
 })
 class TooltipComponent {
   text = input.required<string>();
@@ -19,7 +28,7 @@ class TooltipComponent {
     '(mouseenter)': 'onMouseEnter($event)',
     '(mouseleave)': 'onMouseLeave()',
     '(mousemove)': 'onMouseMove($event)',
-  }
+  },
 })
 export class TooltipDirective implements OnDestroy {
   tooltip = input.required<string>();
@@ -47,8 +56,15 @@ export class TooltipDirective implements OnDestroy {
   }
 
   #setPosition(e: MouseEvent) {
-    this.#renderer.setStyle(this.#ref.location.nativeElement, 'top', `${e.clientY}px`);
-    this.#renderer.setStyle(this.#ref.location.nativeElement, 'left', `${e.clientX + 16}px`);
+    this.#renderer.setStyle(
+      this.#ref.location.nativeElement,
+      'top',
+      `${e.clientY}px`,
+    );
+    this.#renderer.setStyle(
+      this.#ref.location.nativeElement,
+      'left',
+      `${e.clientX + 16}px`,
+    );
   }
-
 }

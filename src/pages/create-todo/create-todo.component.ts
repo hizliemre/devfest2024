@@ -1,12 +1,17 @@
-import {Component, inject} from '@angular/core';
-import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {TodosState} from '@state/todos.state';
+import { Component, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { TodosState } from '@state/todos.state';
 
 @Component({
   imports: [FormsModule, ReactiveFormsModule],
   standalone: true,
   selector: 'app-create-todo',
-  templateUrl: './create-todo.component.html'
+  templateUrl: './create-todo.component.html',
 })
 export class CreateTodoComponent {
   #state = inject(TodosState);

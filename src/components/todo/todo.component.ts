@@ -1,8 +1,8 @@
-import {Component, input, output} from '@angular/core';
-import {Todo} from '@data-access/todo.api';
-import {FormsModule} from '@angular/forms';
-import {TooltipDirective} from '@directives/tooltip.directive';
-import {NgClass} from '@angular/common';
+import { Component, input, output } from '@angular/core';
+import { Todo } from '@data-access/todo.api';
+import { FormsModule } from '@angular/forms';
+import { TooltipDirective } from '@directives/tooltip.directive';
+import { NgClass } from '@angular/common';
 
 export interface TodoStatusChangedEvent {
   id: number;
@@ -13,7 +13,7 @@ export interface TodoStatusChangedEvent {
   imports: [FormsModule, TooltipDirective, NgClass],
   standalone: true,
   selector: 'app-todo',
-  templateUrl: './todo.component.html'
+  templateUrl: './todo.component.html',
 })
 export class TodoComponent {
   todo = input.required<Todo>();
@@ -25,6 +25,4 @@ export class TodoComponent {
       status: !this.todo().completed,
     });
   }
-
 }
-

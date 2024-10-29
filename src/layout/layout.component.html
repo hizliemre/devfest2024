@@ -1,22 +1,28 @@
 <header class="px-4 py-2 bg-slate-700 text-white">
-    <nav class="flex flex-row justify-between items-center">
-        <a class="flex flex-row items-center gap-2" routerLink="/">
-            <img [height]="48" [width]="96" alt="logo" ngSrc="assets/gdg-logo.png" priority/>
-            <span class="text-xl">devfest 2024</span>
-        </a>
-        <ul class="flex flex-row gap-4">
-            <li>
-                <a routerLink="/about">About</a>
-            </li>
-            <li>
-                <a routerLink="/contact">Contact</a>
-            </li>
-        </ul>
-    </nav>
+  <nav class="flex flex-row justify-between items-center">
+    <a class="flex flex-row items-center gap-2" routerLink="/">
+      <img
+        [height]="48"
+        [width]="96"
+        alt="logo"
+        ngSrc="assets/gdg-logo.png"
+        priority
+      />
+      <span class="text-xl">devfest 2024</span>
+    </a>
+    <ul class="flex flex-row gap-4">
+      <li>
+        <a routerLink="/about">About</a>
+      </li>
+      <li>
+        <a routerLink="/contact">Contact</a>
+      </li>
+    </ul>
+  </nav>
 </header>
 <main class="flex flex-1 p-6 min-h-0">
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </main>
 <footer class="py-1 px-3 bg-slate-400 text-slate-800">
-    devfest 2024 - Emre Hızlı
+  devfest 2024 - Emre Hızlı
 </footer>

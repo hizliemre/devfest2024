@@ -1,17 +1,28 @@
 <div class="flex flex-col gap-2 min-h-0 flex-1">
   <div class="flex flex-row gap-4 justify-end">
-    <button (click)="state.prev()" class="px-2 py-1 border hover:bg-slate-400">Previous</button>
-    <button (click)="state.next()" class="px-2 py-1 border hover:bg-slate-400">Next</button>
-    <a class="px-2 py-1 border hover:bg-slate-400" routerLink="create">Create</a>
+    <button (click)="state.prev()" class="px-2 py-1 border hover:bg-slate-400">
+      Previous
+    </button>
+    <button (click)="state.next()" class="px-2 py-1 border hover:bg-slate-400">
+      Next
+    </button>
+    <a class="px-2 py-1 border hover:bg-slate-400" routerLink="create"
+    >Create</a
+    >
   </div>
   <div class="flex-1 overflow-auto flex flex-col gap-1">
     @if (state.loading()) {
       <div class="flex justify-center items-center h-32">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+        <div
+          class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"
+        ></div>
       </div>
     } @else {
       @for (item of state.todos(); track item.id) {
-        <app-todo (statusChanged)="state.itemStatusChanged($event)" [todo]="item"/>
+        <app-todo
+          (statusChanged)="state.itemStatusChanged($event)"
+          [todo]="item"
+        />
       }
     }
   </div>
