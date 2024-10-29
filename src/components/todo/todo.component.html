@@ -1,14 +1,14 @@
 <label
   [for]="'todo-' + todo().id"
   [tooltip]="todo().todo"
-  class="flex flex-row items-center gap-2 border py-2 cursor-pointer hover:bg-slate-100"
+  class="flex cursor-pointer flex-row items-center gap-2 border py-2 hover:bg-slate-100"
 >
-  <span class="text-xl w-12 text-right">#{{ todo().id }}</span>
+  <span class="w-12 text-right text-xl">#{{ todo().id }}</span>
   <input
     (ngModelChange)="toggleStatus()"
     [(ngModel)]="todo().completed"
     [id]="'todo-' + todo().id"
-    class="w-5 h-5"
+    class="h-5 w-5"
     type="checkbox"
   />
   <span [ngClass]="{ 'line-through': todo().completed }" class="text-lg">{{

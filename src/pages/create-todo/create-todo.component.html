@@ -1,17 +1,17 @@
 <form
   (ngSubmit)="submit()"
   [formGroup]="form"
-  class="flex flex-col gap-4 items-start"
+  class="flex flex-col items-start gap-4"
 >
   <fieldset>
     <legend>Create Todo</legend>
-    <input class="border text-lg" formControlName="todo" type="text"/>
+    <input class="border text-lg" formControlName="todo" type="text" />
     @if (form.get("todo")?.invalid && form.get("todo")?.touched) {
       <div class="text-red-500">Todo is required</div>
     }
   </fieldset>
   <button
-    class="border text-lg px-2 py-1 bg-slate-400 hover:bg-slate-700"
+    class="border bg-slate-400 px-2 py-1 text-lg hover:bg-slate-700"
     type="submit"
   >
     Save

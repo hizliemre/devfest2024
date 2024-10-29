@@ -6,25 +6,25 @@ import { TodoComponent } from '@components/todo/todo.component';
 import { TodosState } from '@state/todos.state';
 
 @Component({
-  imports: [NgClass, RouterLink, TodoComponent],
-  standalone: true,
-  selector: 'app-todos',
-  templateUrl: './todos.component.html',
-  host: {
-    class: 'flex-1 flex flex-col items-stretch min-h-0',
-  },
+    imports: [NgClass, RouterLink, TodoComponent],
+    standalone: true,
+    selector: 'app-todos',
+    templateUrl: './todos.component.html',
+    host: {
+        class: 'flex-1 flex flex-col items-stretch min-h-0',
+    },
 })
 export class TodosComponent {
-  state = inject(TodosState);
+    state = inject(TodosState);
 }
 
 export const routes: Routes = [
-  {
-    path: '',
-    component: TodosComponent,
-  },
-  {
-    path: 'create',
-    component: CreateTodoComponent,
-  },
+    {
+        path: '',
+        component: TodosComponent,
+    },
+    {
+        path: 'create',
+        component: CreateTodoComponent,
+    },
 ];
