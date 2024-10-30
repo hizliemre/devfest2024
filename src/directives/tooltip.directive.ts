@@ -62,7 +62,6 @@ export class TooltipDirective implements OnDestroy {
 
     ngOnDestroy(): void {
         this.#clear();
-        this.#document.removeEventListener('mousemove', () => {});
     }
 
     #setPosition() {
