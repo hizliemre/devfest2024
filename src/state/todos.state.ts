@@ -1,8 +1,7 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, resource, signal } from '@angular/core';
 import { TodoApi } from '@data-access/todo.api';
-import { rxResource } from '@angular/core/rxjs-interop';
 import { TodoStatusChangedEvent } from '@components/todo/todo.component';
-import { take } from 'rxjs';
+import { lastValueFrom, take } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TodosState {
@@ -10,9 +9,14 @@ export class TodosState {
 
     #limit = signal(30);
     #skip = signal(0);
-    #todosResource = rxResource({
+    // #todosResource = rxResource({
+    //     request: () => ({ limit: this.#limit(), skip: this.#skip() }),
+    //     loader: ({ request: params }) => this.#todoApi.getTodos(params.limit, params.skip),
+    // });
+
+    #todosResource = resource({
         request: () => ({ limit: this.#limit(), skip: this.#skip() }),
-        loader: ({ request: params }) => this.#todoApi.getTodos(params.limit, params.skip),
+        loader: ({ request: params }) => lastValueFrom(this.#todoApi.getTodos(params.limit, params.skip)),
     });
 
     todos = computed(() => this.#todosResource.value() ?? []);
