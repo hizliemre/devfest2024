@@ -1,22 +1,44 @@
-import { Component, ComponentRef, Directive, inject, input, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, Directive, inject, input, OnDestroy, OnInit, Renderer2, signal, ViewContainerRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 type Timeout = ReturnType<typeof setTimeout>;
 export type TooltipPosition = {
     x: 'left' | 'right';
     y: 'top' | 'bottom';
 };
+const animationDuration = 150;
+const fadeInOut = trigger('fadeInOut', [
+    transition(':enter', [style({ opacity: 0 }), animate(`${animationDuration}ms ease-in`)]),
+    transition(':leave', [animate(`${animationDuration}ms ease-out`, style({ opacity: 0 }))]),
+]);
 
 @Component({
     selector: 'app-tooltip',
     standalone: true,
-    template: `{{ text() }}`,
+    template: `
+        @if (show()) {
+            <div [@fadeInOut]="'closed'" class="bg-black text-white p-20 rounded-lg">
+                {{ text() }}
+            </div>
+        }
+    `,
     host: {
-        class: 'absolute pointer-events-none bg-black text-white p-20 rounded-lg',
+        class: 'absolute pointer-events-none',
     },
+    animations: [fadeInOut],
 })
-class TooltipComponent {
+class TooltipComponent implements OnInit {
+    show = signal(false);
     text = input.required<string>();
+
+    ngOnInit(): void {
+        this.show.set(true);
+    }
+
+    destroy() {
+        this.show.set(false);
+    }
 }
 
 @Directive({
@@ -38,9 +60,11 @@ export class TooltipDirective implements OnDestroy {
     #offset = 16;
     #ref!: ComponentRef<TooltipComponent>;
     #delayRef!: Timeout;
+    #clearRef!: Timeout;
     #mouseEvent!: MouseEvent;
 
     onMouseEnter(e: MouseEvent): void {
+        if (this.#clearRef) clearTimeout(this.#clearRef);
         this.#mouseEvent = e;
         this.#delayRef = setTimeout(() => {
             this.#ref = this.#vcr.createComponent(TooltipComponent);
@@ -95,7 +119,13 @@ export class TooltipDirective implements OnDestroy {
     }
 
     #clear(): void {
-        this.#vcr.clear();
+        if (this.#ref) {
+            this.#ref.instance.destroy();
+            this.#clearRef = setTimeout(() => {
+                this.#vcr.clear();
+                clearTimeout(this.#clearRef);
+            }, animationDuration);
+        }
         if (this.#delayRef) clearTimeout(this.#delayRef);
     }
 }

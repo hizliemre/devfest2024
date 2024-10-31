@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { delay, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 export interface Todo {
     id: number;
@@ -25,8 +25,8 @@ export class TodoApi {
             fromString: `limit=${limit}&skip=${skip}`,
         });
         return this.#http.get<GetTodosResponse>(this.#path, { params }).pipe(
-            map((response) => response.todos),
-            delay(3000)
+            map((response) => response.todos)
+            // delay(3000)
         );
     }
 
